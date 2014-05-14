@@ -2,13 +2,14 @@
 vagrantfile-local:
     vm:
         box: centos64-x64-vbox43-1383512148
-        box_url: 'http://box.puphpet.com/centos64-x64-vbox43.box'
+        box_url: 'http://conoha.macpoi.me/demo/demo01-vagrant-512mb/centos64-x64-vbox43.box'
+        box_orig_url: 'http://box.puphpet.com/centos64-x64-vbox43.box'
         hostname: null
         network:
             private_network: 192.168.56.101
             forwarded_port:
                 KxZgYQtAipeM:
-                    host: '10080'
+                    host: '11080'
                     guest: '80'
         provider:
             virtualbox:
