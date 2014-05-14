@@ -34,5 +34,16 @@ This repo is gmo boot camp demo01.
   choco install git git.commandline git.install hosts.editor
 ~~~
 
+8) install putty, ssh
+~~~ bash
+  choco list ssh
+  choco install putty putty.install
+~~~
+and close power shell window.
 
-
+# 9) mingw-get
+# ~~~ bash
+#  choco install mingw-get
+#  mingw-get update
+# ~~~
+  
