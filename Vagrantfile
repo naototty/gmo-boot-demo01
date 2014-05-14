@@ -10,8 +10,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "centos6"
-  config.vm.box_url = "http://conoha.macpoi.me/demo/demo01-vagrant-512mb/centos65-x86_64-20140116.box"
+  ####### config.vm.box = "centos6"
+  ####### config.vm.box_url = "http://conoha.macpoi.me/demo/demo01-vagrant-512mb/centos65-x86_64-20140116.box"
+
+  config.vm.box = "centos6-i386"
+  config.vm.box_url = "http://conoha.macpoi.me/demo/demo01-vagrant-512mb/vagrant-centos-65-i386-minimal.box"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -64,13 +67,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define :node1 do |node|
-    node.vm.box = "centos6"
+    node.vm.box = "centos6-i386"
     node.vm.network :forwarded_port, guest: 22, host: 2201, id: "ssh"
     node.vm.network :private_network, ip: "192.168.33.11"
   end
 
   config.vm.define :node2 do |node|
-    node.vm.box = "centos6"
+    node.vm.box = "centos6-i386"
     node.vm.network :forwarded_port, guest: 22, host: 2202, id: "ssh"
     node.vm.network :forwarded_port, guest: 80, host: 8001, id: "http"
     node.vm.network :private_network, ip: "192.168.33.12"
