@@ -41,9 +41,11 @@ This repo is gmo boot camp demo01.
 ~~~
 and close power shell window.
 
-# 9) mingw-get
-# ~~~ bash
-#  choco install mingw-get
-#  mingw-get update
-# ~~~
+<!--
+9) mingw-get
+~~~ bash
+ choco install mingw-get
+ mingw-get update
+-->
+~~~
   
