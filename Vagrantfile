@@ -4,6 +4,7 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # All Vagrant configuration is done here. The most common configuration
   # options are documented and commented below. For a complete reference,
@@ -45,6 +46,45 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "./share", "/vagrant_data"
+  config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :extra => 'dmode=777,fmode=666'
+
+  $script_node1 = <<SCRIPT
+echo "I am node1 server provisining ..."
+date > /root/vagrant_provisioned_at
+
+mkdir -p /var/www/test/node01.dev/public_html
+chown vagrant: /var/www/test/node01.dev/public_html
+
+yum -y install httpd
+touch /etc/httpd/conf.d/00_vhost.conf
+echo "NameVirtualHost *:80" >> /etc/httpd/conf.d/00_vhost.conf
+touch /etc/httpd/conf.d/vhost-node1.dev.conf
+echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+echo "  DocumentRoot /var/www/test/node01.dev/public_html" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+echo "</VirtualHost>" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+
+yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+sed -i.bak 's/enabled=0/enabled=1/' /etc/yum.repos.d/epel-testing.repo
+
+yum -y install php \
+php-cli \
+php-common \
+php-devel \
+php-gd \
+php-intl \
+php-mbstring \
+php-pdo \
+php-pear.noarch \
+php-xml \
+php-mcrypt
+cp -avf /etc/php.ini /etc/php.ini-ORIG
+echo "date.timezone = Asia/Tokyo" >> /etc/php.ini
+echo "<?php phpinfo();" >> /var/www/test/node01.dev/public_html/index.php
+chkconfig httpd on
+service httpd start
+SCRIPT
+
+  # sudo yum install docker-io
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -66,21 +106,46 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.customize ["modifyvm", :id, "--memory", "512"]
   end
 
-  config.vm.define :node1 do |node|
-    node.vm.box = "centos6-i386"
-    node.vm.network :forwarded_port, guest: 22, host: 2201, id: "ssh"
-    node.vm.network :private_network, ip: "192.168.33.11"
+  config.vm.define :node1 do |node1|
+    ## for 64bit vm
+    ##node.vm.box = "centos6"
+    ## for 32bit vm
+    node1.vm.box = "centos6-i386"
+    node1.vm.hostname = "node1.dev"
+    #
+    node1.vm.network :forwarded_port, guest: 22, host: 2201, id: "ssh"
+    node1.vm.network :forwarded_port, guest: 80, host: 8001, id: "http"
+    node1.vm.network :private_network, ip: "192.168.33.11"
+
+    node1.vm.provider "virtualbox" do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "512"]
+      vb.name = "node1"
+    end
+
+    node1.vm.provision "shell" do |shell|
+      shell.inline: "echo node1"
+      shell.inline: "sed -i -e '/HOSTNAME/d' /dev/sysconfig/network"
+      shell.inline: "echo 'HOSTNAME=node1.dev' >> /dev/sysconfig/network"
+      shell.inline: "hostname -f node1.dev"
+    end
+    node1.vm.provision :shell, :inline => $script_node1
   end
 
-  config.vm.define :node2 do |node|
-    node.vm.box = "centos6-i386"
-    node.vm.network :forwarded_port, guest: 22, host: 2202, id: "ssh"
-    node.vm.network :forwarded_port, guest: 80, host: 8001, id: "http"
-    node.vm.network :private_network, ip: "192.168.33.12"
-  end
+  #config.vm.define :node2 do |node|
+  #  ## for 64bit vm
+  #  ##node.vm.box = "centos6"
+  #  ## for 32bit vm
+  #  node.vm.box = "centos6-i386"
+  #  node.vm.network :forwarded_port, guest: 22, host: 2202, id: "ssh"
+  #  node.vm.network :forwarded_port, guest: 80, host: 8002, id: "http"
+  #  node.vm.network :private_network, ip: "192.168.33.12"
+  #end
   #
   # View the documentation for the provider you're using for more
   # information on available options.
+
+  ## shell script inline
+  config.vm.provision :shell, :inline => $script_node1
 
   # Enable provisioning with CFEngine. CFEngine Community packages are
   # automatically installed. For example, configure the host as a

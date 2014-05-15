@@ -29,7 +29,7 @@ https://github.com/naototty/gmo-boot-demo01
 ## 6) install VirtualBox
 ~~~ bash
   choco list VirtualBox
-  choco install VirtualBox VirtualBox.ExtensionPack vagrant
+  choco install VirtualBox VirtualBox.ExtensionPack vagrant Wget
 ~~~
 
 ## 7) install git command
@@ -41,18 +41,49 @@ https://github.com/naototty/gmo-boot-demo01
 ## 8) install putty, ssh
 ~~~ bash
   choco list ssh
-  choco install putty putty.install
+  choco install putty.install
 ~~~
 and close power shell window.
 
-open new power shell
 
 ## 9) install openssh (ssh command client for power shell)
+execute Windows PowerShell with Administrator roles
+
+open new Administrator powershell : "管理者として実行する"
 ~~~ bash
- choco install openssh
+Windows PowerShell
+Copyright (C) 2013 Microsoft Corporation. All rights reserved.
+
+PS C:\Windows\system32> $path = [Environment]::GetEnvironmentVariable('PATH', 'Machine')
+PS C:\Windows\system32> $path += ';' + 'C:\git\bin'
+PS C:\Windows\system32> [Environment]::SetEnvironmentVariable('PATH', $path, 'Machine')
+PS C:\Windows\system32>
 ~~~
-and close power shell window.
+and close AlL power shell window.
   
 open new power shell
 
+## 10) make Hands on "demo01" work dir
+~~~ bash
+  mkdir devel
+  cd devel
+  mkdir demo01
+  cd demo01
+  pwd
+~~~
 
+
+## 11) git clone "demo01" hands on environment
+~~~ bash
+  git clone https://github.com/naototty/gmo-boot-demo01.git
+
+  ls 
+
+  cd gmo-boot-demo01
+~~~
+
+## 12) vagrant up "demo01" server (32bit)
+~~~ bash
+
+  vagrant up
+~~~
