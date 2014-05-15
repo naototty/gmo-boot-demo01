@@ -49,6 +49,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :extra => 'dmode=777,fmode=666'
 
   $script_node1 = <<SCRIPT
+echo node1
+
+sed -i -e '/HOSTNAME/d' /dev/sysconfig/network
+echo 'HOSTNAME=node1.dev' >> /dev/sysconfig/network
+hostname -f node1.dev
+
 echo "I am node1 server provisining ..."
 date > /root/vagrant_provisioned_at
 
@@ -122,12 +128,12 @@ SCRIPT
       vb.name = "node1"
     end
 
-    node1.vm.provision "shell" do |shell|
-      shell.inline: "echo node1"
-      shell.inline: "sed -i -e '/HOSTNAME/d' /dev/sysconfig/network"
-      shell.inline: "echo 'HOSTNAME=node1.dev' >> /dev/sysconfig/network"
-      shell.inline: "hostname -f node1.dev"
-    end
+    #node1.vm.provision "shell" do |shell|
+    #  #shell.inline: "echo node1"
+    #  #shell.inline: "sed -i -e '/HOSTNAME/d' /dev/sysconfig/network"
+    #  #shell.inline: "echo 'HOSTNAME=node1.dev' >> /dev/sysconfig/network"
+    #  #shell.inline: "hostname -f node1.dev"
+    #end
     node1.vm.provision :shell, :inline => $script_node1
   end
 
