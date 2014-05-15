@@ -2,10 +2,12 @@ gmo-boot-demo01
 ===============
 
 This repo is gmo boot camp demo01.
+https://github.com/naototty/gmo-boot-demo01
 
 1) go http://conoha.macpoi.me/demo/
 
 2) click "setup-cinst.bat" and download
+  file url : http://conoha.macpoi.me/demo/demo01-vagrant-512mb/
   url : http://conoha.macpoi.me/demo/demo01-vagrant-512mb/setup-cinst.bat
 
 3) open setup-cinst.bat file and execute
@@ -41,11 +43,13 @@ This repo is gmo boot camp demo01.
 ~~~
 and close power shell window.
 
-<!--
-9) mingw-get
+open new power shell
+9) install openssh (ssh command client for power shell)
 ~~~ bash
- choco install mingw-get
- mingw-get update
--->
+ choco install openssh
 ~~~
+and close power shell window.
   
+open new power shell
+
+
