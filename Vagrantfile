@@ -46,7 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
   config.vm.synced_folder "./share", "/vagrant_data"
-  config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :extra => 'dmode=777,fmode=666'
+  ## config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :extra => 'dmode=777,fmode=666'
+  config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
 
   $script_node1 = <<SCRIPT
 echo node1
@@ -73,6 +74,7 @@ yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.no
 sed -i.bak 's/enabled=0/enabled=1/' /etc/yum.repos.d/epel-testing.repo
 
 yum -y install php \
+yum-fastestmirror \
 php-cli \
 php-common \
 php-devel \
@@ -85,7 +87,7 @@ php-xml \
 php-mcrypt
 cp -avf /etc/php.ini /etc/php.ini-ORIG
 echo "date.timezone = Asia/Tokyo" >> /etc/php.ini
-echo "<?php phpinfo();" >> /var/www/test/node01.dev/public_html/index.php
+echo "<?php phpinfo();" > /var/www/test/node01.dev/public_html/index.php
 chkconfig httpd on
 service httpd start
 SCRIPT
