@@ -4,6 +4,19 @@ gmo-boot-demo01
 This repo is gmo boot camp demo01.
 https://github.com/naototty/gmo-boot-demo01
 
+# demo02: Virtual Host
+## 1) git checkout R_demo02_1 branch
+~~~ bash
+  pwd
+
+  git checkout R_demo02_1
+
+  ls 
+~~~
+
+
+# demo01: Virtual Machine
+
 ## 1) go http://conoha.macpoi.me/demo/
 
 ## 2) click "setup-cinst.bat" and download
@@ -82,6 +95,8 @@ powershellのwindowを開き直すことで、sshのpathが通っている状態
   ls 
 
   cd gmo-boot-demo01
+
+  git checkout R_demo01_1_01
 ~~~
 
 ## 12) vagrant up "demo01" server (32bit)
