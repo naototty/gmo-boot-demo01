@@ -55,8 +55,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   $script_node1 = <<SCRIPT
 echo node1
 
-sed -i -e '/HOSTNAME/d' /dev/sysconfig/network
-echo 'HOSTNAME=node1.dev' >> /dev/sysconfig/network
+sed -i -e '/HOSTNAME/d' /etc/sysconfig/network
+echo 'HOSTNAME=node1.dev' >> /etc/sysconfig/network
 hostname -f node1.dev
 
 echo "I am node1 server provisining ..."
@@ -135,8 +135,8 @@ SCRIPT
 
     #node1.vm.provision "shell" do |shell|
     #  #shell.inline: "echo node1"
-    #  #shell.inline: "sed -i -e '/HOSTNAME/d' /dev/sysconfig/network"
-    #  #shell.inline: "echo 'HOSTNAME=node1.dev' >> /dev/sysconfig/network"
+    #  #shell.inline: "sed -i -e '/HOSTNAME/d' /etc/sysconfig/network"
+    #  #shell.inline: "echo 'HOSTNAME=node1.dev' >> /etc/sysconfig/network"
     #  #shell.inline: "hostname -f node1.dev"
     #end
     node1.vm.provision :shell, :inline => $script_node1
