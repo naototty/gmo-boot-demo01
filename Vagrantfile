@@ -14,6 +14,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   ####### config.vm.box = "centos6"
   ####### config.vm.box_url = "http://conoha.macpoi.me/demo/demo01-vagrant-512mb/centos65-x86_64-20140116.box"
 
+  ####### config.vm.box = "centos6-x86_64"
+  ####### config.vm.box_url = "http://conoha.macpoi.me/demo/demo01-vagrant-512mb/vagrant-centos-65-x86_64-minimal.box"
+
   config.vm.box = "centos6-i386"
   config.vm.box_url = "http://conoha.macpoi.me/demo/demo01-vagrant-512mb/vagrant-centos-65-i386-minimal.box"
 
