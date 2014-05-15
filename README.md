@@ -63,6 +63,8 @@ and close AlL power shell window.
   
 open new power shell
 
+powershellのwindowを開き直すことで、sshのpathが通っている状態の端末となる
+
 ## 10) make Hands on "demo01" work dir
 ~~~ bash
   mkdir devel
@@ -87,3 +89,27 @@ open new power shell
 
   vagrant up
 ~~~
+
+## 13) view http://192.168.33.11/ on Remote Desktop environment web browser
+  うまく起動まで行けば、つぎのURLでwebが立ち上がり、phpのphpinfo()の実行を確認できる 
+ 
+  http://192.168.33.11/
+
+
+## 14) ssh web server
+~~~ bash
+
+  vagrant ssh node1
+  sudo su -
+~~~
+
+or 
+
+~~~ bash
+
+  ssh -l vagrant 192.168.33.11
+  sudo su -
+~~~
+
+
+
