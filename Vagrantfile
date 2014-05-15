@@ -51,6 +51,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "./share", "/vagrant_data"
   ## config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :extra => 'dmode=777,fmode=666'
   config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
+  config.vm.synced_folder "./source/demo02.dev", "/var/www/test/demo02.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
 
   $script_node1 = <<SCRIPT
 echo node1
@@ -63,15 +64,27 @@ echo "I am node1 server provisining ..."
 date > /root/vagrant_provisioned_at
 
 mkdir -p /var/www/test/node01.dev/public_html
-chown vagrant: /var/www/test/node01.dev/public_html
+chown -R vagrant: /var/www/test/node01.dev/public_html
+
+mkdir -p /var/www/test/demo02.dev/public_html
+chown -R vagrant: /var/www/test/demo02.dev/public_html
 
 yum -y install httpd
 touch /etc/httpd/conf.d/00_vhost.conf
 echo "NameVirtualHost *:80" >> /etc/httpd/conf.d/00_vhost.conf
-touch /etc/httpd/conf.d/vhost-node1.dev.conf
-echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/vhost-node1.dev.conf
-echo "  DocumentRoot /var/www/test/node01.dev/public_html" >> /etc/httpd/conf.d/vhost-node1.dev.conf
-echo "</VirtualHost>" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+
+if [ -f /vagrant_data/vhost-demo02.dev.conf ]; then
+  cp -avf /vagrant_data/vhost-demo02.dev.conf /etc/httpd/conf.d/vhost-demo02.dev.conf
+fi
+
+if [ -f /vagrant_data/vhost-node1.dev.conf ]; then
+  cp -avf /vagrant_data/vhost-node1.dev.conf /etc/httpd/conf.d/vhost-node1.dev.conf
+else
+  touch /etc/httpd/conf.d/vhost-node1.dev.conf
+  echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+  echo "  DocumentRoot /var/www/test/node01.dev/public_html" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+  echo "</VirtualHost>" >> /etc/httpd/conf.d/vhost-node1.dev.conf
+fi
 
 yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 sed -i.bak 's/enabled=0/enabled=1/' /etc/yum.repos.d/epel-testing.repo
@@ -90,7 +103,8 @@ php-xml \
 php-mcrypt
 cp -avf /etc/php.ini /etc/php.ini-ORIG
 echo "date.timezone = Asia/Tokyo" >> /etc/php.ini
-echo "<?php phpinfo();" > /var/www/test/node01.dev/public_html/index.php
+cat /var/www/test/node01.dev/info.php >  /var/www/test/node01.dev/public_html/index.php
+cat /var/www/test/demo02.dev/info.php >  /var/www/test/demo02.dev/public_html/index.php
 chkconfig httpd on
 service httpd start
 SCRIPT
