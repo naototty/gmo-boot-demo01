@@ -85,7 +85,7 @@ if [ -f /vagrant_data/vhost-port-10081-node1.dev.conf ]; then
 fi
 
 if [ -f /vagrant_data/vhost-port-10082-demo02.dev.conf ]; then
-  cp -avf /vagrant_data/vhost-port-10081-node1.dev.conf /etc/httpd/conf.d/vhost-port-10081-node1.dev.conf
+  cp -avf /vagrant_data/vhost-port-10082-demo02.dev.conf /etc/httpd/conf.d/vhost-port-10082-demo02.dev.conf
 fi
 
 
