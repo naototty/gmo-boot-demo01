@@ -69,9 +69,27 @@ chown -R vagrant: /var/www/test/node01.dev/public_html
 mkdir -p /var/www/test/demo02.dev/public_html
 chown -R vagrant: /var/www/test/demo02.dev/public_html
 
+yum -y install yum-fastestmirror
+
 yum -y install httpd
+
 touch /etc/httpd/conf.d/00_vhost.conf
 echo "NameVirtualHost *:80" >> /etc/httpd/conf.d/00_vhost.conf
+
+if [ -f /vagrant_data/lb_manager.conf ]; then
+  cp -avf /vagrant_data/lb_manager.conf /etc/httpd/conf.d/lb_manager.conf
+fi
+
+if [ -f /vagrant_data/vhost-port-10081-node1.dev.conf ]; then
+  cp -avf /vagrant_data/vhost-port-10081-node1.dev.conf /etc/httpd/conf.d/vhost-port-10081-node1.dev.conf
+fi
+
+if [ -f /vagrant_data/vhost-port-10082-demo02.dev.conf ]; then
+  cp -avf /vagrant_data/vhost-port-10081-node1.dev.conf /etc/httpd/conf.d/vhost-port-10081-node1.dev.conf
+fi
+
+  cp -avf /vagrant_data/lb_manager.conf /etc/httpd/conf.d/lb_manager.conf
+fi
 
 if [ -f /vagrant_data/vhost-demo02.dev.conf ]; then
   cp -avf /vagrant_data/vhost-demo02.dev.conf /etc/httpd/conf.d/vhost-demo02.dev.conf
@@ -90,7 +108,6 @@ yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.no
 sed -i.bak 's/enabled=0/enabled=1/' /etc/yum.repos.d/epel-testing.repo
 
 yum -y install php \
-yum-fastestmirror \
 php-cli \
 php-common \
 php-devel \
