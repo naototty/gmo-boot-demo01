@@ -5,6 +5,8 @@ This repo is gmo boot camp demo01.
 https://github.com/naototty/gmo-boot-demo01
 
 # demo02: Virtual Host
+VirtualHostの確認
+
 ## 1) destroy demo01 vm
 ~~~ bash
   vagrant destroy
@@ -26,6 +28,7 @@ https://github.com/naototty/gmo-boot-demo01
 
 
 # demo01: Virtual Machine
+開発環境としてweb(php)サーバを構築
 
 ## 1) go http://conoha.macpoi.me/demo/
 
