@@ -4,6 +4,10 @@ gmo-boot-demo01
 This repo is gmo boot camp demo01.
 https://github.com/naototty/gmo-boot-demo01
 
+wiki
+https://github.com/naototty/gmo-boot-demo01/wiki
+
+
 # demo03: Reverse Proxy
 ## 1) destroy demo02 vm
 ~~~ bash
