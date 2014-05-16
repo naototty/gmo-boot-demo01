@@ -53,6 +53,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "./source/node01.dev", "/var/www/test/node01.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
   config.vm.synced_folder "./source/demo02.dev", "/var/www/test/demo02.dev", :create => true, :owner => 'vagrant', :group => 'vagrant', :mount_options => ['dmode=777', 'fmode=666']
 
+  ## demo03
   $script_node1 = <<SCRIPT
 echo node1
 
