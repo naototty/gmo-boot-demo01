@@ -5,13 +5,23 @@ This repo is gmo boot camp demo01.
 https://github.com/naototty/gmo-boot-demo01
 
 # demo02: Virtual Host
-## 1) git checkout R_demo02_1 branch
+## 1) destroy demo01 vm
+~~~ bash
+  vagrant destroy
+~~~
+  
+## 2) git checkout R_demo02_1 branch
 ~~~ bash
   pwd
 
   git checkout R_demo02_1
 
   ls 
+~~~
+
+## 3) vagrant up demo02 vm
+~~~ bash
+  vagrant up
 ~~~
 
 
