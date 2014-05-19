@@ -157,4 +157,12 @@ or
 ~~~
 
 
+# Reference URL
+  * qitta.com Vagrantチュートリアル手習い http://qiita.com/naoiwata/items/2502b81f5ee940e6db8b
+  * qiita.com Vagrantの基本 http://qiita.com/kidachi_/items/e63c1607705178aa257c
+  * qitta.com Vagrant入門 http://qiita.com/MasayaMizuhara/items/791c2b713ac7d8c98123
+  * qitta.com Vagrantコマンド詳細 http://qiita.com/yuma_iwasaki/items/988e8d66aa067fef2033
+  * qitta.com Vagrant設定をいろいろ調べて(試してみた) http://qiita.com/ryurock/items/91df14537512c03488ac
+  * qitta.com Windowsの環境変数をPowerShellで書き換える http://qiita.com/mmorita/items/4c44363faf74a7105199
+
 
