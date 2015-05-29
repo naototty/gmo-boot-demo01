@@ -153,7 +153,7 @@ SCRIPT
     ## for 64bit vm
     ##node.vm.box = "centos6"
     ## for 32bit vm
-    node1.vm.box = "centos6-i386"
+    ## node1.vm.box = "centos6-i386"
     node1.vm.hostname = "node1.dev"
     #
     node1.vm.network :forwarded_port, guest: 22, host: 2201, id: "ssh"
